@@ -1,4 +1,3 @@
-import { useState } from "react";
 import newArrivalsOne from "../assets/images/new-arrivals-1.png";
 import newArrivalsTwo from "../assets/images/new-arrivals-2.png";
 import newArrivalsThree from "../assets/images/new-arrivals-3.png";
@@ -6,64 +5,74 @@ import newArrivalsThree from "../assets/images/new-arrivals-3.png";
 const newArrivalInfo = [
   {
     image: newArrivalsOne,
-    title: "Mens Underwears",
-    subtitle: "Men's clothing Venenatis Etiam",
+    title: "Body Dry Running",
+    subtitle: "Cooling innerwear line inspired by BYC's summer essentials.",
+    tag: "Summer item",
+    price: "$32",
   },
   {
     image: newArrivalsTwo,
-    title: "Womens Underwears",
-    subtitle: "Parturient Venenatis Etiam",
+    title: "Soft Wire Bra",
+    subtitle: "A cleaner women’s everyday fit with softer support and lighter feel.",
+    tag: "Women",
+    price: "$28",
   },
   {
     image: newArrivalsThree,
-    title: "Underwears",
-    subtitle: "Parturient Venenatis Etiam",
+    title: "Airmery Pajama Set",
+    subtitle: "Winter-ready layering translated into a calmer lounge silhouette.",
+    tag: "Airmery",
+    price: "$44",
   },
 ];
 
-const NewArrivalsCard = ({ title, description, imageUrl }) => {
-  const [showOverlay, setShowOverlay] = useState(false);
+const NewArrivalsCard = ({ title, description, imageUrl, tag, price }) => {
   return (
-    <div className="col-12 col-sm-6 col-lg-4">
-      <div
-        className="mb-4 w-100 position-relative"
-        onClick={() => setShowOverlay(true)}
-      >
-        <img src={imageUrl} alt="" className="w-100" />
-        {showOverlay && (
-          <div className="position-absolute top-0 start-0 end-0 bottom-0 bg-light bg-opacity-50 d-flex align-items-center justify-content-center">
-            <h2>Clicked</h2>
-          </div>
-        )}
-      </div>
-      <h4 className="h3 text-capitalize mb-1">{title}</h4>
-      <div className="">
-        <p>{description}</p>
-        {showOverlay && (
-          <button
-            className="btn btn-primary"
-            onClick={() => setShowOverlay(false)}
-          >
-            remove Overlay
+    <article className="product-card fade-up">
+      <div className="product-card-media">
+        <img src={imageUrl} alt={title} className="product-card-image" />
+        <div className="product-card-overlay">
+          <span className="product-card-badge">{tag}</span>
+          <button className="product-card-cta" type="button">
+            Quick view
           </button>
-        )}
+        </div>
       </div>
-    </div>
+      <div className="product-card-copy">
+        <div className="product-card-row">
+          <h3>{title}</h3>
+          <strong>{price}</strong>
+        </div>
+        <p>{description}</p>
+      </div>
+    </article>
   );
 };
 
 const NewArrivals = () => {
   return (
-    <section className="my-5 ">
+    <section className="section-block" id="new-arrivals">
       <div className="container">
-        <h2 className="pt-5  mb-5 text-center">Check out BYC New Arrivals</h2>
-        <div className="row">
-          {newArrivalInfo.map((arrivalInfo, index) => (
+        <div className="section-heading fade-up">
+          <span className="eyebrow">Product focus</span>
+          <h2 className="section-title-light">
+            BYC products with a cleaner, more premium presentation
+          </h2>
+          <p>
+            The section now leans into real BYC categories instead of placeholder
+            copy, with hover-driven reveals and stronger card hierarchy.
+          </p>
+        </div>
+
+        <div className="product-grid">
+          {newArrivalInfo.map((arrivalInfo) => (
             <NewArrivalsCard
-              key={index}
+              key={arrivalInfo.title}
               title={arrivalInfo.title}
               imageUrl={arrivalInfo.image}
               description={arrivalInfo.subtitle}
+              tag={arrivalInfo.tag}
+              price={arrivalInfo.price}
             />
           ))}
         </div>

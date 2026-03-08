@@ -1,42 +1,65 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 
-const people = ["yourself", "Men", "Women", "Kids"].map((person) => (
-  <span className="fadeIn_animation" key={person}>
-    {person}
-  </span>
-));
+const audiences = ["yourself", "men", "women", "kids"];
 
-// const lastIndex = people.length - 1;
-
-// useEffect(() => {
-//   let intervalID = setInterval(() => {
-//     if (activeIndex < lastIndex) {
-//       setActiveIndex(activeIndex + 1);
-//     } else {
-//       setActiveIndex(0);
-//     }
-//   }, 3000);
-//   return () => clearInterval(intervalID);
-// }, [activeIndex, lastIndex]);
+const highlights = [
+  { value: "1946", label: "heritage since" },
+  { value: "70+", label: "countries reached" },
+  { value: "24/7", label: "comfort-first wear" },
+];
 
 const Hero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex + 1) % audiences.length);
+    }, 2600);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
-    <section>
+    <section className="hero-section" id="home">
       <div className="container">
-        <div className="d-flex justify-content-center flex-column w-100 text-center">
-          <h2 className="fs-3 fw-normal mb-3">Your body deserves comfort</h2>
-          <h1
-            className="fw-bold mb-5"
-            style={{ fontSize: 60 }}
-          >
-            Get the best for {people[activeIndex]}
-          </h1>
-          <div className="d-flex gap-3 justify-content-center">
-            <Button title="Get Started" buttonType="normal" isBlack={false} />
-            <Button title="Learn more" buttonType="outline" />
+        <div className="hero-grid">
+          <div className="hero-copy fade-up">
+            <span className="eyebrow">Clean layers. Strong silhouettes.</span>
+            <h1 className="hero-title">
+              BYC essentials built for{" "}
+              <span className="hero-rotating-word" key={audiences[activeIndex]}>
+                {audiences[activeIndex]}
+              </span>
+            </h1>
+            <p className="hero-description">
+              Reworked into a sharper storefront with breathable basics,
+              winter-ready innerwear, and softer everyday sets across men,
+              women, and kids.
+            </p>
+            <div className="hero-actions">
+              <Button title="Shop products" href="#new-arrivals" />
+              <Button title="Explore categories" href="#categories" buttonType="outline" />
+            </div>
+          </div>
+
+          <div className="hero-panel fade-up">
+            <div className="hero-card hero-card-primary">
+              <p className="hero-card-label">Featured drop</p>
+              <h2>Body Dry cooling layers for spring-to-summer comfort</h2>
+              <p>
+                Sleek essentials with lighter weight fabrics, clean trims, and
+                a calmer shopping rhythm across the page.
+              </p>
+            </div>
+            <div className="hero-highlights">
+              {highlights.map((item) => (
+                <div className="hero-stat" key={item.label}>
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
